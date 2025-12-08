@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogos de Raciocínio Lógico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- CSS do Módulo CEP -->
+    <link rel="stylesheet" href="styles/cep-styles.css">
+</head>
+<body>
+    <!-- Menu de Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <span>Lógica Games</span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#" class="nav-link" data-section="home">Início</a>
+                <a href="#" class="nav-link" data-section="games">Jogos</a>
+                <a href="#" class="nav-link" data-section="ranking">Ranking</a>
+                <a href="#" class="nav-link" data-section="profile" id="profileLink">Perfil</a>
+                <button class="btn btn-login" id="loginBtn">Entrar</button>
+                <button class="btn btn-logout hidden" id="logoutBtn">Sair</button>
+                
+                <!-- Botão de alternância de tema -->
+                <button class="btn btn-theme-toggle" id="themeToggle" title="Alternar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Modal de Login/Cadastro -->
+    <div class="modal-overlay hidden" id="authModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">Entrar</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Entrar</button>
+                    <button class="auth-tab" data-tab="register">Cadastrar</button>
+                </div>
+                
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="loginEmail">E-mail</label>
+                        <input type="email" id="loginEmail" required placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Senha</label>
+                        <input type="password" id="loginPassword" required placeholder="Digite sua senha">
+                    </div>
+                    <button type="submit" class="btn btn-submit">Entrar</button>
+                    
+                    <!-- BOTÃO DE USUÁRIO TESTE -->
+                    <button type="button" class="btn btn-test-user" id="testUserBtn">
+                        <i class="fas fa-user-check"></i> Usuário Teste
+                    </button>
+                    
+                    <!-- BOTÃO DE VISITANTE (SERÁ ADICIONADO DINAMICAMENTE PELO JAVASCRIPT) -->
+                    <!-- O botão será inserido aqui automaticamente -->
+                    
+                    <div class="auth-feedback" id="loginFeedback"></div>
+                </form>
+                
+                <form id="registerForm" class="auth-form hidden">
+                    <div class="form-group">
+                        <label for="registerName">Nome</label>
+                        <input type="text" id="registerName" required placeholder="Seu nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">E-mail</label>
+                        <input type="email" id="registerEmail" required placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Senha</label>
+                        <input type="password" id="registerPassword" required placeholder="Mínimo 6 caracteres" minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Confirmar Senha</label>
+                        <input type="password" id="registerConfirmPassword" required placeholder="Digite a senha novamente">
+                    </div>
+                    <button type="submit" class="btn btn-submit">Cadastrar</button>
+                    <div class="auth-feedback" id="registerFeedback"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <!-- Seção Início -->
+        <section id="home" class="section active">
+            <header class="hero">
+                <h1>Jogos de Raciocínio Lógico</h1>
+                <p>Desafie sua mente com jogos simples de lógica, matemática e quebra-cabeças. Perfeito para iniciantes!</p>
+                <button class="btn btn-hero" id="startPlayingBtn">Começar a Jogar</button>
+            </header>
+
+            <div class="container">
+                <section class="intro">
+                    <h2>Estimule seu cérebro de forma divertida</h2>
+                    <p>Este site oferece jogos de raciocínio lógico desenvolvidos com HTML, CSS e JavaScript básico. Ideal para estudantes, iniciantes em programação ou qualquer pessoa que queira exercitar a mente.</p>
+                    <p>Faça login para salvar seu progresso e competir com outros jogadores no ranking!</p>
+                </section>
+            </div>
+        </section>
+
+        <!-- Seção Jogos -->
+        <section id="games" class="section hidden">
+            <div class="container">
+                <h2 class="section-title">Escolha um Jogo</h2>
+                <div class="games-grid" id="gamesGrid">
+                    <!-- Jogo 1: Quiz Matemático -->
+                    <div class="game-card">
+                        <div class="game-header">
+                            <h3><i class="fas fa-calculator"></i> Quiz Matemático</h3>
+                            <p>Teste suas habilidades em matemática básica</p>
+                        </div>
+                        <div class="game-content">
+                            <p class="game-description">Responda a perguntas de matemática simples. Cada pergunta tem 4 opções de resposta. Você tem 60 segundos para responder o máximo de perguntas possível!</p>
+                            <div class="game-stats">
+                                <p><i class="fas fa-trophy"></i> Melhor pontuação: <span id="mathBestScore">0</span></p>
+                            </div>
+                            <button class="btn btn-start" data-game="mathQuiz">Iniciar Jogo</button>
+                        </div>
+                    </div>
+
+                    <!-- Jogo 2: Combinador de Cores -->
+                    <div class="game-card">
+                        <div class="game-header">
+                            <h3><i class="fas fa-palette"></i> Combinador de Cores</h3>
+                            <p>Encontre os pares de cores iguais</p>
+                        </div>
+                        <div class="game-content">
+                            <p class="game-description">Memorize as cores e encontre os pares correspondentes. Este jogo exercita sua memória e capacidade de reconhecimento de padrões.</p>
+                            <div class="game-stats">
+                                <p><i class="fas fa-trophy"></i> Melhor tempo: <span id="colorBestTime">-</span></p>
+                            </div>
+                            <button class="btn btn-start" data-game="colorMatch">Iniciar Jogo</button>
+                        </div>
+                    </div>
+
+                    <!-- Jogo 3: Quebra-Cabeça Numérico -->
+                    <div class="game-card">
+                        <div class="game-header">
+                            <h3><i class="fas fa-puzzle-piece"></i> Quebra-Cabeça Numérico</h3>
+                            <p>Organize os números em ordem crescente</p>
+                        </div>
+                        <div class="game-content">
+                            <p class="game-description">Arraste os números para organizá-los em ordem crescente. O último espaço ficará vazio para permitir o movimento das peças.</p>
+                            <div class="game-stats">
+                                <p><i class="fas fa-trophy"></i> Menor movimentos: <span id="puzzleBestMoves">-</span></p>
+                            </div>
+                            <button class="btn btn-start" data-game="numberPuzzle">Iniciar Jogo</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jogos Ativos -->
+                <!-- Jogo 1: Quiz Matemático -->
+                <section id="mathQuiz" class="game-active hidden">
+                    <div class="game-controls">
+                        <button class="btn back-btn"><i class="fas fa-arrow-left"></i> Voltar</button>
+                        <div class="score">Pontuação: <span id="mathScore">0</span></div>
+                    </div>
+                    <h3>Quiz Matemático</h3>
+                    <div class="question" id="mathQuestion">Carregando pergunta...</div>
+                    <div class="options" id="mathOptions">
+                        <!-- As opções serão geradas por JavaScript -->
+                    </div>
+                    <div class="feedback" id="mathFeedback"></div>
+                    <div class="timer">Tempo restante: <span id="mathTimer">60</span> segundos</div>
+                </section>
+
+                <!-- Jogo 2: Combinador de Cores -->
+                <section id="colorMatch" class="game-active hidden">
+                    <div class="game-controls">
+                        <button class="btn back-btn"><i class="fas fa-arrow-left"></i> Voltar</button>
+                        <div class="score">Movimentos: <span id="colorMoves">0</span> | Pares: <span id="colorPairs">0/8</span></div>
+                    </div>
+                    <h3>Combinador de Cores</h3>
+                    <p class="game-description" style="text-align: center;">Clique em duas cores para tentar formar um par. Encontre todos os 8 pares!</p>
+                    <div class="color-grid" id="colorGrid">
+                        <!-- As células de cores serão geradas por JavaScript -->
+                    </div>
+                    <div class="feedback" id="colorFeedback"></div>
+                    <div class="timer">Tempo: <span id="colorTimer">0</span>s</div>
+                </section>
+
+                <!-- Jogo 3: Quebra-Cabeça Numérico -->
+                <section id="numberPuzzle" class="game-active hidden">
+                    <div class="game-controls">
+                        <button class="btn back-btn"><i class="fas fa-arrow-left"></i> Voltar</button>
+                        <div class="score">Movimentos: <span id="puzzleMoves">0</span></div>
+                    </div>
+                    <h3>Quebra-Cabeça Numérico</h3>
+                    <p class="game-description" style="text-align: center;">Clique em um número adjacente ao espaço vazio para movê-lo. Organize os números de 1 a 8 em ordem crescente.</p>
+                    <div class="puzzle-container">
+                        <div class="puzzle-grid" id="puzzleGrid">
+                            <!-- As células do quebra-cabeça serão geradas por JavaScript -->
+                        </div>
+                        <div class="feedback" id="puzzleFeedback"></div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- Seção Ranking -->
+        <section id="ranking" class="section hidden">
+            <div class="container">
+                <h2 class="section-title">Ranking de Jogadores</h2>
+                <div class="ranking-container">
+                    <div class="ranking-tabs">
+                        <button class="ranking-tab active" data-ranking="math">Quiz Matemático</button>
+                        <button class="ranking-tab" data-ranking="color">Combinador de Cores</button>
+                        <button class="ranking-tab" data-ranking="puzzle">Quebra-Cabeça Numérico</button>
+                    </div>
+                    
+                    <div class="ranking-table-container">
+                        <table class="ranking-table" id="mathRanking">
+                            <thead>
+                                <tr>
+                                    <th>Posição</th>
+                                    <th>Jogador</th>
+                                    <th>Pontuação</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Ranking será preenchido por JavaScript -->
+                            </tbody>
+                        </table>
+                        
+                        <table class="ranking-table hidden" id="colorRanking">
+                            <thead>
+                                <tr>
+                                    <th>Posição</th>
+                                    <th>Jogador</th>
+                                    <th>Tempo (s)</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Ranking será preenchido por JavaScript -->
+                            </tbody>
+                        </table>
+                        
+                        <table class="ranking-table hidden" id="puzzleRanking">
+                            <thead>
+                                <tr>
+                                    <th>Posição</th>
+                                    <th>Jogador</th>
+                                    <th>Movimentos</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Ranking será preenchido por JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="ranking-info">
+                        <p><i class="fas fa-info-circle"></i> Faça login para participar do ranking e salvar suas pontuações!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Perfil -->
+        <!-- IMPORTANTE: O conteúdo desta seção será carregado dinamicamente pelo JavaScript -->
+        <section id="profile" class="section hidden">
+            <!-- O conteúdo do perfil será carregado dinamicamente pelo JavaScript -->
+        </section>
+                <!-- Seção Feedback -->
+        <section id="feedback" class="section hidden">
+            <div class="container">
+                <h2 class="section-title"><i class="fas fa-star"></i> Avalie Nosso Sistema</h2>
+                
+                <div class="intro">
+                    <h3>Ajude-nos a melhorar sua experiência!</h3>
+                    <p>Avalie os diferentes aspectos do site Lógica Games usando nossa escala de 1 a 5.</p>
+                    <p><strong>Instruções:</strong> Para cada afirmação, selecione de 1 (Discordo totalmente) a 5 (Concordo totalmente).</p>
+                </div>
+                
+                <div class="quis-container">
+                    <!-- O formulário QUIS será carregado dinamicamente pelo JavaScript -->
+                    <div id="quisFormContainer">
+                        <!-- O formulário será inserido aqui pelo JavaScript -->
+                    </div>
+                    
+                    <!-- Botões de ação -->
+                    <div class="quis-actions" style="text-align: center; margin-top: 2rem;">
+                        <button id="submitQUIS" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;">
+                            <i class="fas fa-paper-plane"></i> Enviar Feedback
+                        </button>
+                        <button onclick="showSection('games')" class="btn btn-secondary" style="margin-left: 1rem;">
+                            <i class="fas fa-gamepad"></i> Voltar aos Jogos
+                        </button>
+                    </div>
+                    
+                    <!-- Área de agradecimento (aparece após envio) -->
+                    <div id="quisThankYou" class="hidden" style="text-align: center; padding: 3rem;">
+                        <i class="fas fa-check-circle" style="font-size: 4rem; color: #06D6A0; margin-bottom: 1.5rem;"></i>
+                        <h3>Obrigado pelo seu feedback!</h3>
+                        <p style="margin-bottom: 1.5rem;">Sua avaliação é muito importante para melhorarmos o sistema.</p>
+                        <button onclick="showSection('games')" class="btn btn-primary">
+                            <i class="fas fa-gamepad"></i> Continuar Jogando
+                        </button>
+                    </div>
+                    
+                    <!-- Seção de resultados (apenas para visualização) -->
+                    <div id="quisResults" class="hidden" style="margin-top: 3rem;">
+                        <h3><i class="fas fa-chart-bar"></i> Resultados do Feedback</h3>
+                        <div id="resultsSummary">
+                            <!-- Resumo será carregado aqui -->
+                        </div>
+                        <div class="results-charts">
+                            <!-- Gráficos simples serão gerados aqui -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Site de Jogos de Raciocínio Lógico - Nível Iniciante</p>
+        <p>Desenvolvido com HTML, CSS e JavaScript básico para fins educacionais</p>
+    </footer>
+
+    <!-- ================================================ -->
+    <!-- TEMPLATES PARA O MÓDULO DE CEP (OPCIONAL) -->
+    <!-- Estes templates podem ser usados pelo módulo CEP -->
+    <!-- ================================================ -->
+    
+    <!-- Template do formulário de endereço (modo edição) -->
+    <template id="addressFormTemplate">
+        <div class="address-form">
+            <div class="form-row">
+                <div class="form-group" style="flex: 1;">
+                    <label for="userCEP"><i class="fas fa-search-location"></i> CEP</label>
+                    <div class="cep-input-group">
+                        <input type="text" id="userCEP" placeholder="00000-000" maxlength="9">
+                        <button type="button" id="searchCEP" class="btn btn-small">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                    </div>
+                    <small class="cep-hint">Digite o CEP para buscar o endereço automaticamente</small>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group" style="flex: 3;">
+                    <label for="userStreet">Rua/Avenida</label>
+                    <input type="text" id="userStreet" placeholder="Nome da rua">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label for="userNumber">Número</label>
+                    <input type="text" id="userNumber" placeholder="123">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group" style="flex: 1;">
+                    <label for="userComplement">Complemento</label>
+                    <input type="text" id="userComplement" placeholder="Apto 101">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label for="userNeighborhood">Bairro</label>
+                    <input type="text" id="userNeighborhood" placeholder="Centro">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group" style="flex: 2;">
+                    <label for="userCity">Cidade</label>
+                    <input type="text" id="userCity" placeholder="Cidade">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label for="userState">Estado</label>
+                    <select id="userState">
+                        <option value="">UF</option>
+                        <option value="AC">AC</option>
+                        <option value="AL">AL</option>
+                        <option value="AP">AP</option>
+                        <option value="AM">AM</option>
+                        <option value="BA">BA</option>
+                        <option value="CE">CE</option>
+                        <option value="DF">DF</option>
+                        <option value="ES">ES</option>
+                        <option value="GO">GO</option>
+                        <option value="MA">MA</option>
+                        <option value="MT">MT</option>
+                        <option value="MS">MS</option>
+                        <option value="MG">MG</option>
+                        <option value="PA">PA</option>
+                        <option value="PB">PB</option>
+                        <option value="PR">PR</option>
+                        <option value="PE">PE</option>
+                        <option value="PI">PI</option>
+                        <option value="RJ">RJ</option>
+                        <option value="RN">RN</option>
+                        <option value="RS">RS</option>
+                        <option value="RO">RO</option>
+                        <option value="RR">RR</option>
+                        <option value="SC">SC</option>
+                        <option value="SP">SP</option>
+                        <option value="SE">SE</option>
+                        <option value="TO">TO</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="address-actions">
+                <button type="button" id="saveAddress" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Salvar Endereço
+                </button>
+                <button type="button" id="clearAddress" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Limpar
+                </button>
+            </div>
+            
+            <div id="addressFeedback" class="address-feedback"></div>
+        </div>
+    </template>
+
+    <!-- Template do endereço salvo (modo leitura) -->
+    <template id="addressViewTemplate">
+        <div class="address-saved">
+            <h5><i class="fas fa-check-circle" style="color: #06D6A0;"></i> Endereço Cadastrado</h5>
+            <div class="address-details" id="addressDisplay">
+                <!-- Dados do endereço serão inseridos aqui -->
+            </div>
+            <button type="button" id="editAddress" class="btn address-edit-btn">
+                <i class="fas fa-edit"></i> Editar Endereço
+            </button>
+        </div>
+</template>
+
+<!-- Template do endereço para visitante -->
+<template id="addressGuestTemplate">
+    <div class="address-form">
+        <p style="color: #7f8c8d; text-align: center; padding: 1rem;">
+            <i class="fas fa-info-circle"></i> 
+            Faça login ou cadastre-se para salvar seu endereço permanentemente.
+        </p>
+        <div class="address-actions" style="justify-content: center;">
+            <button type="button" id="loginToSaveAddress" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> Criar Conta
+            </button>
+        </div>
+    </div>
+</template>
+
+<!-- ================================================ -->
+<!-- FIM DOS TEMPLATES DO MÓDULO CEP -->
+<!-- ================================================ -->
+
+<!-- Carregar módulos JavaScript -->
+<script src="script.js"></script>
+
+<!-- Carregar módulos -->
+<script src="modules/auth-module.js"></script>
+<script src="modules/games-module.js"></script>
+<script src="modules/test-user-module.js"></script>
+<!-- Módulo de CEP -->
+<script src="modules/cep-module.js"></script>
+
+<script>
+    // Inicializar módulos após carregar tudo
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM completamente carregado');
+        
+        // Inicializar módulo de usuário teste
+        if (typeof TestUserModule !== 'undefined') {
+            TestUserModule.init();
+            console.log('Módulo de Usuário Teste inicializado');
+        }
+        
+        // Inicializar módulo de CEP (se existir)
+        if (typeof CEPModule !== 'undefined') {
+            console.log('Módulo CEP detectado e pronto para uso');
+        }
+        
+        // Botão "Começar a Jogar" na página inicial
+        const startPlayingBtn = document.getElementById('startPlayingBtn');
+        if (startPlayingBtn) {
+            startPlayingBtn.addEventListener('click', function() {
+                showSection('games');
+            });
+        }
+        
+        // Inicializar sistema de tema
+        initTheme();
+    });
+    
+    // ============ SISTEMA DE TEMA CLARO/ESCURO ============
+    
+    function initTheme() {
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle?.querySelector('i');
+        
+        // Verificar tema salvo ou preferência do sistema
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Aplicar tema inicial
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            enableDarkMode();
+        } else {
+            enableLightMode();
+        }
+        
+        // Configurar evento do botão
+        if (themeToggle) {
+            themeToggle.addEventListener('click', toggleTheme);
+        }
+    }
+    
+    function toggleTheme() {
+        if (document.body.classList.contains('dark-mode')) {
+            enableLightMode();
+        } else {
+            enableDarkMode();
+        }
+    }
+    
+    function enableDarkMode() {
+        document.body.classList.add('dark-mode');
+        updateThemeIcon('dark');
+        localStorage.setItem('theme', 'dark');
+    }
+    
+    function enableLightMode() {
+        document.body.classList.remove('dark-mode');
+        updateThemeIcon('light');
+        localStorage.setItem('theme', 'light');
+    }
+    
+    function updateThemeIcon(theme) {
+        const themeIcon = document.querySelector('#themeToggle i');
+        if (themeIcon) {
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+                themeIcon.parentElement.title = 'Alternar para tema claro';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeIcon.parentElement.title = 'Alternar para tema escuro';
+            }
+        }
+    }
+    
+    // Adicionar CSS para animações
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+</script>
+</body>
+</html>

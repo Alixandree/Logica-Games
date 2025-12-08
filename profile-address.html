@@ -1,0 +1,128 @@
+<!-- Template do formulário de endereço -->
+<div class="profile-address" id="profileAddressSection">
+    <h4><i class="fas fa-map-marker-alt"></i> Endereço</h4>
+    
+    <!-- Conteúdo será carregado dinamicamente -->
+    <div id="addressContent">
+        <!-- Formulário de endereço será inserido aqui pelo JavaScript -->
+    </div>
+</div>
+
+<!-- Template do formulário (modo edição) -->
+<template id="addressFormTemplate">
+    <div class="address-form">
+        <div class="form-row">
+            <div class="form-group" style="flex: 1;">
+                <label for="userCEP"><i class="fas fa-search-location"></i> CEP</label>
+                <div class="cep-input-group">
+                    <input type="text" id="userCEP" placeholder="00000-000" maxlength="9">
+                    <button type="button" id="searchCEP" class="btn btn-small">
+                        <i class="fas fa-search"></i> Buscar
+                    </button>
+                </div>
+                <small class="cep-hint">Digite o CEP para buscar o endereço automaticamente</small>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group" style="flex: 3;">
+                <label for="userStreet">Rua/Avenida</label>
+                <input type="text" id="userStreet" placeholder="Nome da rua">
+            </div>
+            <div class="form-group" style="flex: 1;">
+                <label for="userNumber">Número</label>
+                <input type="text" id="userNumber" placeholder="123">
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group" style="flex: 1;">
+                <label for="userComplement">Complemento</label>
+                <input type="text" id="userComplement" placeholder="Apto 101">
+            </div>
+            <div class="form-group" style="flex: 1;">
+                <label for="userNeighborhood">Bairro</label>
+                <input type="text" id="userNeighborhood" placeholder="Centro">
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group" style="flex: 2;">
+                <label for="userCity">Cidade</label>
+                <input type="text" id="userCity" placeholder="Cidade">
+            </div>
+            <div class="form-group" style="flex: 1;">
+                <label for="userState">Estado</label>
+                <select id="userState">
+                    <option value="">UF</option>
+                    <option value="AC">AC</option>
+                    <option value="AL">AL</option>
+                    <option value="AP">AP</option>
+                    <option value="AM">AM</option>
+                    <option value="BA">BA</option>
+                    <option value="CE">CE</option>
+                    <option value="DF">DF</option>
+                    <option value="ES">ES</option>
+                    <option value="GO">GO</option>
+                    <option value="MA">MA</option>
+                    <option value="MT">MT</option>
+                    <option value="MS">MS</option>
+                    <option value="MG">MG</option>
+                    <option value="PA">PA</option>
+                    <option value="PB">PB</option>
+                    <option value="PR">PR</option>
+                    <option value="PE">PE</option>
+                    <option value="PI">PI</option>
+                    <option value="RJ">RJ</option>
+                    <option value="RN">RN</option>
+                    <option value="RS">RS</option>
+                    <option value="RO">RO</option>
+                    <option value="RR">RR</option>
+                    <option value="SC">SC</option>
+                    <option value="SP">SP</option>
+                    <option value="SE">SE</option>
+                    <option value="TO">TO</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="address-actions">
+            <button type="button" id="saveAddress" class="btn btn-primary">
+                <i class="fas fa-save"></i> Salvar Endereço
+            </button>
+            <button type="button" id="clearAddress" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Limpar
+            </button>
+        </div>
+        
+        <div id="addressFeedback" class="address-feedback"></div>
+    </div>
+</template>
+
+<!-- Template do endereço salvo (modo leitura) -->
+<template id="addressViewTemplate">
+    <div class="address-saved">
+        <h5><i class="fas fa-check-circle" style="color: #06D6A0;"></i> Endereço Cadastrado</h5>
+        <div class="address-details" id="addressDisplay">
+            <!-- Dados do endereço serão inseridos aqui -->
+        </div>
+        <button type="button" id="editAddress" class="btn address-edit-btn">
+            <i class="fas fa-edit"></i> Editar Endereço
+        </button>
+    </div>
+</template>
+
+<!-- Template do endereço para visitante -->
+<template id="addressGuestTemplate">
+    <div class="address-form">
+        <p style="color: #7f8c8d; text-align: center; padding: 1rem;">
+            <i class="fas fa-info-circle"></i> 
+            Faça login ou cadastre-se para salvar seu endereço permanentemente.
+        </p>
+        <div class="address-actions" style="justify-content: center;">
+            <button type="button" id="loginToSaveAddress" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> Criar Conta
+            </button>
+        </div>
+    </div>
+</template>
